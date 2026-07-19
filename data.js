@@ -5,7 +5,7 @@
 window.PORTFOLIO_DATA = {
   student: {
     fullName: "Nguyễn Phương Anh",
-    studentId: "25022712",
+    studentId: "25042712",
     dateOfBirth: "[CẬP NHẬT SAU]",
     className: "[CẬP NHẬT SAU]",
     major: "Văn hóa và Truyền thông xuyên quốc gia",
