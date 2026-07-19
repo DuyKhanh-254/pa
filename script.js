@@ -296,6 +296,97 @@
     }
   }
 
+  function prefersReducedMotion() {
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }
+
+  function createPetalShower({ amount = 34 } = {}) {
+    if (prefersReducedMotion()) return;
+
+    document.querySelector(".nav-petal-shower")?.remove();
+    const shower = document.createElement("div");
+    shower.className = "nav-petal-shower";
+    shower.setAttribute("aria-hidden", "true");
+    const colors = ["#f9dce5", "#efb8ca", "#d987a7", "#fff0f4"];
+
+    for (let index = 0; index < amount; index += 1) {
+      const petal = document.createElement("span");
+      const direction = index % 2 ? 1 : -1;
+      petal.style.setProperty("--left", `${Math.random() * 104 - 2}%`);
+      petal.style.setProperty("--size", `${7 + Math.random() * 10}px`);
+      petal.style.setProperty("--fall-duration", `${1.35 + Math.random() * .75}s`);
+      petal.style.setProperty("--fall-delay", `${Math.random() * .28}s`);
+      petal.style.setProperty("--drift", `${direction * (45 + Math.random() * 145)}px`);
+      petal.style.setProperty("--spin", `${direction * (420 + Math.random() * 520)}deg`);
+      petal.style.setProperty("--petal-color", colors[index % colors.length]);
+      shower.appendChild(petal);
+    }
+
+    document.body.appendChild(shower);
+    requestAnimationFrame(() => shower.classList.add("active"));
+    window.setTimeout(() => shower.remove(), 2500);
+  }
+
+  function setupPageTransitions() {
+    const transitionKey = "sakura-page-transition";
+    if (sessionStorage.getItem(transitionKey) === "1") {
+      sessionStorage.removeItem(transitionKey);
+      document.body.classList.add("page-arriving");
+      window.setTimeout(() => createPetalShower({ amount: 38 }), 80);
+      window.setTimeout(() => document.body.classList.remove("page-arriving"), 850);
+    }
+
+    document.querySelectorAll(".site-nav .nav-link").forEach(link => {
+      link.addEventListener("click", event => {
+        if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || link.target) return;
+        if (prefersReducedMotion()) return;
+
+        const destination = new URL(link.href, window.location.href);
+        const currentPage = destination.pathname === window.location.pathname;
+        event.preventDefault();
+        createPetalShower({ amount: currentPage ? 30 : 38 });
+        if (currentPage) return;
+
+        document.body.classList.add("page-is-leaving");
+        sessionStorage.setItem(transitionKey, "1");
+        window.setTimeout(() => window.location.assign(destination.href), 520);
+      });
+    });
+  }
+
+  function setupEnhancedInteractions() {
+    document.querySelectorAll(".button, .filter-button, .nav-link, .header-button").forEach(control => {
+      control.classList.add("has-ripple");
+      control.addEventListener("pointerdown", event => {
+        if (prefersReducedMotion()) return;
+        const bounds = control.getBoundingClientRect();
+        const ripple = document.createElement("span");
+        ripple.className = "interaction-ripple";
+        ripple.style.left = `${event.clientX - bounds.left}px`;
+        ripple.style.top = `${event.clientY - bounds.top}px`;
+        control.appendChild(ripple);
+        ripple.addEventListener("animationend", () => ripple.remove(), { once: true });
+      });
+    });
+
+    if (prefersReducedMotion() || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    document.querySelectorAll(".assignment-card").forEach(card => {
+      card.addEventListener("pointermove", event => {
+        const bounds = card.getBoundingClientRect();
+        const rotateY = ((event.clientX - bounds.left) / bounds.width - .5) * 5;
+        const rotateX = (((event.clientY - bounds.top) / bounds.height - .5) * -5);
+        card.style.setProperty("--tilt-x", `${rotateX.toFixed(2)}deg`);
+        card.style.setProperty("--tilt-y", `${rotateY.toFixed(2)}deg`);
+        card.classList.add("is-tilting");
+      });
+      card.addEventListener("pointerleave", () => {
+        card.classList.remove("is-tilting");
+        card.style.removeProperty("--tilt-x");
+        card.style.removeProperty("--tilt-y");
+      });
+    });
+  }
+
   renderShell();
   fillCommonContent();
   if (page === "home") renderHome();
@@ -304,6 +395,8 @@
   setupPdfModal();
   setupMotion();
   setupGlobalInteractions();
+  setupPageTransitions();
+  setupEnhancedInteractions();
   if (window.location.hash) {
     const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
     if (target) window.setTimeout(() => target.scrollIntoView({ block: "start", behavior: "auto" }), 180);
