@@ -1,0 +1,10 @@
+{
+  "name": "nguyen-phuong-anh-learning-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Portfolio học tập — Văn hóa và Truyền thông xuyên quốc gia, ULIS",
+  "scripts": {
+    "dev": "node dev-server.js",
+    "start": "node dev-server.js"
+  }
+}

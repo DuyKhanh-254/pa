@@ -1,0 +1,20 @@
+# Dependencies and caches
+node_modules/
+**/__pycache__/
+*.py[cod]
+.DS_Store
+Thumbs.db
+
+# Local Codex tooling and generated design notes
+/.codex/
+/.agents/
+/design-system/
+
+# Local visual-regression screenshots
+/tmp-*.png
+/font-*.png
+/hero-sakura-*.png
+
+# Large generated source files; optimized assets remain tracked
+/assets/generated/*.png
+!/assets/generated/academic-stickers-optimized.png
