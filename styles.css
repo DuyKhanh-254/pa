@@ -335,10 +335,10 @@ p { margin: 0; }
 .variant-6 .button-ghost { border-color: rgba(255,255,255,.35); color: #fff; background: transparent; }
 .variant-6 .button-ghost:hover { color: var(--burgundy); background: #fff; }
 
-.archive-note { display: grid; grid-template-columns: 130px 1fr auto; gap: 30px; align-items: center; width: var(--container); margin: 0 auto 120px; padding: 28px 32px; border: 1px dashed var(--rose-500); border-radius: 20px; background: var(--rose-100); }
+.archive-note { display: grid; grid-template-columns: 130px 1fr; gap: 30px; align-items: center; width: var(--container); margin: 0 auto 120px; padding: 28px 32px; border: 1px dashed var(--rose-500); border-radius: 20px; background: var(--rose-100); }
 .archive-note > span { color: var(--rose-700); font-size: 8px; font-weight: 700; letter-spacing: .16em; }
 .archive-note p { color: var(--muted); font-size: 10px; }
-.archive-note a { color: var(--rose-700); font-size: 9px; font-weight: 700; }
+.archive-note a { justify-self: end; color: var(--rose-700); font-size: 9px; font-weight: 700; }
 
 /* PDF reader */
 .pdf-modal { position: fixed; z-index: 600; inset: 0; display: grid; place-items: center; padding: 22px; opacity: 0; visibility: hidden; transition: opacity .22s, visibility .22s; }
