@@ -407,9 +407,6 @@ p { margin: 0; }
 .thank-copy { max-width: 910px; text-align: center; }
 .thank-copy h2 { color: #fff; font-size: 92px; }
 .thank-copy > p:not(.eyebrow):not(.thank-signature) { max-width: 720px; margin: 30px auto 0; color: #eadce3; font-size: 12px; }
-.teacher-line { display: inline-flex; align-items: center; gap: 15px; margin-top: 35px; padding: 12px 18px; border: 1px solid rgba(255,255,255,.26); border-radius: 99px; }
-.teacher-line span { color: var(--rose-200); font-size: 7px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
-.teacher-line strong { font-size: 10px; }
 .thank-signature { margin-top: 24px; color: var(--rose-200); font: italic 30px var(--display); }
 .thank-actions { display: flex; justify-content: center; gap: 10px; margin-top: 32px; }
 

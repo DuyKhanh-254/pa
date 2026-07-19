@@ -26,7 +26,7 @@
     const links = [
       { key: "home", href: "index.html", label: "Trang chủ" },
       { key: "assignments", href: "assignments.html", label: "Bài tập" },
-      { key: "reflection", href: "reflection.html", label: "Phản tư" }
+      { key: "reflection", href: "reflection.html", label: "Tổng kết" }
     ];
 
     if (header) {
@@ -66,7 +66,6 @@
       "[data-introduction]": data.student.introduction,
       "[data-quote]": data.student.quote,
       "[data-year]": data.course.year,
-      "[data-teacher]": data.course.teacher,
       "[data-thanks-heading]": data.thankYou.heading,
       "[data-thanks-message]": data.thankYou.message,
       "[data-thanks-signature]": data.thankYou.signature,
